@@ -12,9 +12,10 @@ Gem::Specification.new do |s|
   s.description = %q{Wrapper for pusher.com REST api}
   s.license     = "MIT"
 
-  s.add_dependency "multi_json", "~> 1.0"
+  s.add_dependency "oj", "~> 2.12"
   s.add_dependency 'signature', "~> 0.1.8"
-  s.add_dependency "httpclient", "~> 2.5"
+#  s.add_dependency "patron", "~> 0.4"
+   s.add_dependency "httpclient", "~> 2.5"
   s.add_dependency "jruby-openssl" if defined?(JRUBY_VERSION)
 
   s.add_development_dependency "rspec", "~> 2.0"

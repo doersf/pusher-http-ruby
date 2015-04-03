@@ -1,4 +1,5 @@
 require 'signature'
+require 'oj'
 
 module Pusher
   class Client
@@ -288,8 +289,8 @@ module Pusher
         data
       else
         begin
-          MultiJson.encode(data)
-        rescue MultiJson::DecodeError => e
+          Oj.dump(data)
+        rescue Exception => e
           Pusher.logger.error("Could not convert #{data.inspect} into JSON")
           raise e
         end

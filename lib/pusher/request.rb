@@ -1,6 +1,7 @@
 require 'signature'
 require 'digest/md5'
-require 'multi_json'
+require 'oj'
+
 
 module Pusher
   class Request
@@ -26,6 +27,7 @@ module Pusher
 
       begin
         response = http.request(@verb, @uri, @params, @body, @head)
+        puts "Sent: #{@verb} #{@uri} #{@params} #{@body} #{@head}"
       rescue HTTPClient::BadResponseError, HTTPClient::TimeoutError,
              SocketError, Errno::ECONNREFUSED => e
         error = Pusher::HTTPError.new("#{e.message} (#{e.class})")
@@ -81,7 +83,7 @@ module Pusher
     def handle_response(status_code, body)
       case status_code
       when 200
-        return symbolize_first_level(MultiJson.decode(body))
+        return symbolize_first_level(Oj.load(body))
       when 202
         return true
       when 400

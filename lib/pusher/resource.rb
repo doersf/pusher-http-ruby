@@ -1,3 +1,5 @@
+require 'oj'
+
 module Pusher
   class Resource
     def initialize(client, path)
@@ -14,12 +16,12 @@ module Pusher
     end
 
     def post(params)
-      body = MultiJson.encode(params)
+      body = Oj.dump(params)
       create_request(:post, {}, body).send_sync
     end
 
     def post_async(params)
-      body = MultiJson.encode(params)
+      body = Oj.dump(params)
       create_request(:post, {}, body).send_async
     end
 

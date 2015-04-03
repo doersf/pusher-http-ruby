@@ -1,5 +1,5 @@
 require 'openssl'
-require 'multi_json'
+require 'oj'
 
 module Pusher
   # Trigger events on Channels
@@ -156,7 +156,7 @@ module Pusher
     # @private Custom data is sent to server as JSON-encoded string
     #
     def authenticate(socket_id, custom_data = nil)
-      custom_data = MultiJson.encode(custom_data) if custom_data
+      custom_data = Oj.dump(custom_data) if custom_data
       auth = authentication_string(socket_id, custom_data)
       r = {:auth => auth}
       r[:channel_data] = custom_data if custom_data

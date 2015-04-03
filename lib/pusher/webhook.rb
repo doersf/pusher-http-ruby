@@ -1,4 +1,4 @@
-require 'multi_json'
+require 'oj'
 require 'openssl'
 
 module Pusher
@@ -85,7 +85,7 @@ module Pusher
       @data ||= begin
         case @content_type
         when 'application/json'
-          MultiJson.decode(@body)
+          Oj.load(@body)
         else
           raise "Unknown Content-Type (#{@content_type})"
         end
