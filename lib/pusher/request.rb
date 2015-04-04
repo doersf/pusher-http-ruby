@@ -44,11 +44,8 @@ module Pusher
         http_client = @client.em_http_client(@uri)
         df = EM::DefaultDeferrable.new
 
-        puts "Using Async"
-
         http = case @verb
         when :post
-                 puts "Posting Async!"
           http_client.post({
             :query => @params, :body => @body, :head => @head
           })
@@ -60,7 +57,6 @@ module Pusher
           raise "Unsupported verb"
         end
         http.callback {
-          puts "Got Callback #{http.response.chomp} #{http.response_header.status}"
           begin
             df.succeed(handle_response(http.response_header.status, http.response.chomp))
           rescue => e
@@ -68,7 +64,6 @@ module Pusher
           end
         }
         http.errback { |e|
-          puts "Got Error"
           message = "Network error connecting to pusher (#{http.error})"
           Pusher.logger.debug(message)
           df.fail(Error.new(message))
@@ -76,11 +71,9 @@ module Pusher
 
         return df
       else
-        puts "Using Sync"
 
-        http = @client.sync_http_client
+        raise "No EventMachine Reactor found. Aborting asynchronous call."
 
-        return http.request_async(@verb, @uri, @params, @body, @head)
       end
     end
 

@@ -22,7 +22,6 @@ module Pusher
 
     def post_async(params)
       body = Oj.dump(params, mode: :compat)
-      puts "Creating Request!"
       create_request(:post, {}, body).send_async
     end
 
