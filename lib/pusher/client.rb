@@ -259,6 +259,7 @@ module Pusher
         connection_opts = {
           :connect_timeout => @connect_timeout,
           :inactivity_timeout => @receive_timeout,
+          :keep_alive => true
         }
 
         if defined?(@proxy)
@@ -272,7 +273,8 @@ module Pusher
           connection_opts[:proxy] = proxy_opts
         end
 
-        EventMachine::HttpRequest.new(uri, connection_opts)
+        @em_client ||= EventMachine::HttpRequest.new(uri, connection_opts)
+        @em_client
       end
     end
 
