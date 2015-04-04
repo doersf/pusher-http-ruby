@@ -14,13 +14,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency "oj", "~> 2.12"
   s.add_dependency 'signature', "~> 0.1.8"
-#  s.add_dependency "patron", "~> 0.4"
-   s.add_dependency "httpclient", "~> 2.5"
+  s.add_dependency "patron", "~> 0.4"
+  s.add_dependency "em-http-request", "~> 1.1.0"
+  s.add_dependency "httpclient", "~> 2.5"
   s.add_dependency "jruby-openssl" if defined?(JRUBY_VERSION)
 
   s.add_development_dependency "rspec", "~> 2.0"
   s.add_development_dependency "webmock"
-  s.add_development_dependency "em-http-request", "~> 1.1.0"
   s.add_development_dependency "rake"
   s.add_development_dependency "rack"
 
