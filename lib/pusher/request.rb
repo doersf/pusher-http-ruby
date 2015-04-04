@@ -26,18 +26,17 @@ module Pusher
       http = @client.sync_http_client
 
       begin
-        response = http.request(@verb, @uri, @params, @body, @head)
+
+        response = http.request(@verb, @uri, @head, {:query => @params, :data => @body})
         puts "Sent: #{@verb} #{@uri} #{@params} #{@body} #{@head}"
-      rescue HTTPClient::BadResponseError, HTTPClient::TimeoutError,
-             SocketError, Errno::ECONNREFUSED => e
-        error = Pusher::HTTPError.new("#{e.message} (#{e.class})")
-        error.original_error = e
-        raise error
+
+      rescue Exception => e
+        raise e
       end
 
       body = response.body ? response.body.chomp : nil
 
-      return handle_response(response.code.to_i, body)
+      return handle_response(response.status.to_i, body)
     end
 
     def send_async

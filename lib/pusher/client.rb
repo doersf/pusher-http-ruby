@@ -1,4 +1,5 @@
 require 'signature'
+require 'patron'
 require 'oj'
 
 module Pusher
@@ -238,16 +239,13 @@ module Pusher
 
     # @private Construct a net/http http client
     def sync_http_client
-      @client ||= begin
-        require 'httpclient'
 
-        HTTPClient.new(@http_proxy).tap do |c|
-          c.connect_timeout = @connect_timeout
-          c.send_timeout = @send_timeout
-          c.receive_timeout = @receive_timeout
-          c.keep_alive_timeout = @keep_alive_timeout
-        end
+      @client ||= Patron::Session.new do |p|
+        p.timeout = @receive_timeout
+        p.connect_timeout = @connect_timeout
+        p.base_url = "#{@uri}"
       end
+
     end
 
     # @private Construct an em-http-request http client
