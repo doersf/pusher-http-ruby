@@ -1,5 +1,5 @@
-autoload 'Logger', 'logger'
 require 'uri'
+require 'logger'
 require 'forwardable'
 
 require 'pusher/client'
