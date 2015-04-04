@@ -234,6 +234,7 @@ module Pusher
     # For parameters see #trigger
     #
     def trigger_async(channels, event_name, data, params = {})
+      puts "Triggered Async!"
       post_async('/events', trigger_params(channels, event_name, data, params))
     end
 
