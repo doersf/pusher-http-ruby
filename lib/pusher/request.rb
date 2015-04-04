@@ -46,7 +46,6 @@ module Pusher
 
         http = case @verb
         when :post
-                 puts "Query: #{@params}, Body: #{@body}, Head: #{@head}"
           http_client.post({
             :query => @params, :body => @body, :head => @head
           })
@@ -59,7 +58,7 @@ module Pusher
           raise "Unsupported verb"
         end
         http.callback {
-          puts "success"
+
           begin
             df.succeed(handle_response(http.response_header.status, http.response.chomp))
           rescue => e

@@ -259,7 +259,6 @@ module Pusher
         connection_opts = {
           :connect_timeout => @connect_timeout,
           :inactivity_timeout => @receive_timeout,
-          :keep_alive => true,
         }
 
         if defined?(@proxy)
@@ -273,8 +272,8 @@ module Pusher
           connection_opts[:proxy] = proxy_opts
         end
 
-        @em_client ||= EventMachine::HttpRequest.new(uri, connection_opts)
-        @em_client
+        # slanger doesn't support pipelining, we'll have to create a new connection every time
+        EventMachine::HttpRequest.new(uri, connection_opts)
       end
     end
 
