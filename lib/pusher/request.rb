@@ -46,11 +46,11 @@ module Pusher
 
         http = case @verb
         when :post
+                 puts "Query: #{@params}, Body: #{@body}, Head: #{@head}"
           http_client.post({
             :query => @params, :body => @body, :head => @head
           })
 
-                 puts "Query: #{@params}, Body: #{@body}, Head: #{@head}"
         when :get
           http_client.get({
             :query => @params, :head => @head
