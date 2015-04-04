@@ -83,7 +83,7 @@ module Pusher
     def handle_response(status_code, body)
       case status_code
       when 200
-        return symbolize_first_level(Oj.load(body))
+        return symbolize_first_level(Oj.load(body, mode: :compat))
       when 202
         return true
       when 400

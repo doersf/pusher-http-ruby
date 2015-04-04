@@ -85,7 +85,7 @@ module Pusher
       @data ||= begin
         case @content_type
         when 'application/json'
-          Oj.load(@body)
+          Oj.load(@body, mode: :compat)
         else
           raise "Unknown Content-Type (#{@content_type})"
         end

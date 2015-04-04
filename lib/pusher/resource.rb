@@ -16,12 +16,12 @@ module Pusher
     end
 
     def post(params)
-      body = Oj.dump(params)
+      body = Oj.dump(params, mode: :compat)
       create_request(:post, {}, body).send_sync
     end
 
     def post_async(params)
-      body = Oj.dump(params)
+      body = Oj.dump(params, mode: :compat)
       create_request(:post, {}, body).send_async
     end
 

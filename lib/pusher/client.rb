@@ -289,7 +289,7 @@ module Pusher
         data
       else
         begin
-          Oj.dump(data)
+          Oj.dump(data, mode: :compat)
         rescue Exception => e
           Pusher.logger.error("Could not convert #{data.inspect} into JSON")
           raise e
