@@ -28,7 +28,7 @@ module Pusher
       begin
 
         response = http.request(@verb, @uri, @head, {:query => @params, :data => @body})
-        puts "Sent: #{@verb} #{@uri} #{@params} #{@body} #{@head}"
+        Pusher.logger.debug("Sent: #{@verb} #{@uri} #{@params} #{@body} #{@head}")
 
       rescue Exception => e
         raise e
