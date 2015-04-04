@@ -259,7 +259,7 @@ module Pusher
         connection_opts = {
           :connect_timeout => @connect_timeout,
           :inactivity_timeout => @receive_timeout,
-          :keep_alive => true
+          :keep_alive => true,
         }
 
         if defined?(@proxy)
