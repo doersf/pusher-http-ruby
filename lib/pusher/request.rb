@@ -44,6 +44,8 @@ module Pusher
         http_client = @client.em_http_client(@uri)
         df = EM::DefaultDeferrable.new
 
+        puts "Using Async"
+
         http = case @verb
         when :post
                  puts "Posting Async!"
@@ -74,6 +76,8 @@ module Pusher
 
         return df
       else
+        puts "Using Sync"
+
         http = @client.sync_http_client
 
         return http.request_async(@verb, @uri, @params, @body, @head)
